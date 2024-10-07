@@ -25,4 +25,4 @@ jobs:
         run: npm run build --prod --output-path=dist/my-angular-app --base-href=/my-angular-app/
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/my-angular-app
+        run: npx angular-cli-ghpages --dir=dist/my-angular-app/browser
