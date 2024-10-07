@@ -1,12 +1,10 @@
 name: Deploy to GitHub Pages
 
-# Trigger deployment on push to the 'main' branch
 on:
   push:
     branches:
       - main
 
-# Define the jobs to be run
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,10 +24,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Build the Angular application
-      # Using --configuration production instead of --prod as it's the current best practice
+      # Step 4: Build the Angular application with the correct configuration
       - name: Build the Angular Application
-        run: npm run build --configuration production --output-path=dist/my-angular-app --base-href=/my-angular-app/
+        run: npm run build -- --configuration production --output-path=dist/my-angular-app --base-href=/my-angular-app/
 
       # Step 5: Deploy the built app to GitHub Pages
       - name: Deploy to GitHub Pages
