@@ -10,24 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js with the specified version
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Specify Node.js version
+          node-version: '20'
 
-      # Step 3: Install project dependencies using npm
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Build the Angular application with the correct configuration
       - name: Build the Angular Application
         run: npm run build -- --configuration production --output-path=dist/my-angular-app --base-href=/my-angular-app/
 
-      # Step 5: Deploy the built app to GitHub Pages
+      - name: Clean cache
+        run: rm -rf node_modules/.cache/gh-pages
+
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/my-angular-app/browser
+        env:
+          GITHUB_TOKEN: ${{ secrets.AMIAPP_TOKEN }}
+        run: npx angular-cli-ghpages --dir=dist/my-angular-app/browser --no-silent --force
