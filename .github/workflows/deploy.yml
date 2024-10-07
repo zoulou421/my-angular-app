@@ -1,31 +1,36 @@
 name: Deploy to GitHub Pages
 
+# Trigger deployment on push to the 'main' branch
 on:
   push:
     branches:
       - main
 
+# Define the jobs to be run
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js with the specified version
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '20'  # Specify Node.js version
 
+      # Step 3: Install project dependencies using npm
       - name: Install Dependencies
         run: npm install
 
+      # Step 4: Build the Angular application
+      # Using --configuration production instead of --prod as it's the current best practice
       - name: Build the Angular Application
-        run: npm run build --prod --output-path=dist/my-angular-app --base-href=/my-angular-app/
+        run: npm run build --configuration production --output-path=dist/my-angular-app --base-href=/my-angular-app/
 
+      # Step 5: Deploy the built app to GitHub Pages
       - name: Deploy to GitHub Pages
-        run: |
-          npx gh-pages -d dist/my-angular-app/browser
-        env:
-          GITHUB_TOKEN: ${{ secrets.AMIAPP_TOKEN }}
+        run: npx angular-cli-ghpages --dir=dist/my-angular-app/browser
