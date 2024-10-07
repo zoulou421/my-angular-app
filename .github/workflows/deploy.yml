@@ -29,5 +29,5 @@ jobs:
 
       - name: Deploy to GitHub Pages
         env:
-          GITHUB_TOKEN: ${{ secrets.AMIAPP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.APP_TOKEN }}
         run: npx angular-cli-ghpages --dir=dist/my-angular-app/browser --no-silent --force
